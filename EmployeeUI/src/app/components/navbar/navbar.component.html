@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/employees">Employee Manager</a>
+  </div>
+
+  <div class="navbar-menu" *ngIf="isLoggedIn$ | async">
+    <a routerLink="/employees" routerLinkActive="active">Employees</a>
+    <a routerLink="/employees/new" routerLinkActive="active">Add Employee</a>
+  </div>
+
+  <div class="navbar-end">
+    <ng-container *ngIf="isLoggedIn$ | async; else loginLink">
+      <span class="user-info">{{ username }}</span>
+      <button class="btn btn-logout" (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #loginLink>
+      <a routerLink="/login" class="btn btn-login">Login</a>
+    </ng-template>
+  </div>
+</nav>

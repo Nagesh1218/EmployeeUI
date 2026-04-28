@@ -1,0 +1,80 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>{{ isEditMode ? 'Edit Employee' : 'Add New Employee' }}</h2>
+
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+
+    <div class="loading" *ngIf="loading && isEditMode && !formData.firstName">
+      <p>Loading employee data...</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #empForm="ngForm" *ngIf="!loading || formData.firstName">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="formData.firstName"
+                 required maxlength="100" placeholder="First name" />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="formData.lastName"
+                 required maxlength="100" placeholder="Last name" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" [(ngModel)]="formData.email"
+                 required email placeholder="Email address" />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" [(ngModel)]="formData.phone"
+                 maxlength="15" placeholder="Phone number" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="department">Department</label>
+          <input type="text" id="department" name="department" [(ngModel)]="formData.department"
+                 maxlength="100" placeholder="Department" />
+        </div>
+        <div class="form-group">
+          <label for="designation">Designation</label>
+          <input type="text" id="designation" name="designation" [(ngModel)]="formData.designation"
+                 maxlength="100" placeholder="Designation" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="salary">Salary *</label>
+          <input type="number" id="salary" name="salary" [(ngModel)]="formData.salary"
+                 required min="0" placeholder="Salary" />
+        </div>
+        <div class="form-group">
+          <label for="dateOfJoining">Date of Joining *</label>
+          <input type="date" id="dateOfJoining" name="dateOfJoining" [(ngModel)]="formData.dateOfJoining"
+                 required />
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group" *ngIf="isEditMode">
+        <label>
+          <input type="checkbox" name="isActive" [(ngModel)]="formData.isActive" />
+          Active Employee
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="empForm.invalid || loading">
+          {{ loading ? 'Saving...' : (isEditMode ? 'Update' : 'Create') }}
+        </button>
+        <button type="button" class="btn btn-cancel" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

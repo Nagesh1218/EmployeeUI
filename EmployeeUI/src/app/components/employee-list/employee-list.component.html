@@ -1,0 +1,52 @@
+<div class="employee-list-container">
+  <div class="header">
+    <h2>Employees</h2>
+    <a routerLink="/employees/new" class="btn btn-add">+ Add Employee</a>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <p>Loading employees...</p>
+  </div>
+
+  <div class="empty-state" *ngIf="!loading && employees.length === 0">
+    <p>No employees found. Start by adding one!</p>
+  </div>
+
+  <div class="table-wrapper" *ngIf="!loading && employees.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Salary</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+          <td>{{ emp.firstName }} {{ emp.lastName }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.department || '-' }}</td>
+          <td>{{ emp.designation || '-' }}</td>
+          <td>{{ emp.salary | currency:'INR' }}</td>
+          <td>
+            <span class="status-badge" [class.active]="emp.isActive" [class.inactive]="!emp.isActive">
+              {{ emp.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </td>
+          <td class="actions">
+            <button class="btn btn-edit" (click)="editEmployee(emp.id)">Edit</button>
+            <button class="btn btn-delete" (click)="deleteEmployee(emp.id, emp.firstName + ' ' + emp.lastName)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
