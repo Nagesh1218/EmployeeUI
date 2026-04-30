@@ -9,6 +9,7 @@ export interface Employee {
   salary: number;
   dateOfJoining: string;
   isActive: boolean;
+  location?: string;
 }
 
 export interface CreateEmployee {
@@ -20,6 +21,7 @@ export interface CreateEmployee {
   designation?: string;
   salary: number;
   dateOfJoining: string;
+  location?: string;
 }
 
 export interface UpdateEmployee {
@@ -32,4 +34,5 @@ export interface UpdateEmployee {
   salary: number;
   dateOfJoining: string;
   isActive: boolean;
+  location?: string;
 }

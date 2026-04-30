@@ -26,6 +26,7 @@ export class EmployeeFormComponent implements OnInit {
     phone: '',
     department: '',
     designation: '',
+    location : '',
     salary: 0,
     dateOfJoining: new Date().toISOString().split('T')[0],
     isActive: true
@@ -60,6 +61,7 @@ export class EmployeeFormComponent implements OnInit {
             phone: emp.phone || '',
             department: emp.department || '',
             designation: emp.designation || '',
+            location: emp.location || '',
             salary: emp.salary,
             dateOfJoining: emp.dateOfJoining.split('T')[0],
             isActive: emp.isActive
@@ -102,6 +104,7 @@ export class EmployeeFormComponent implements OnInit {
         phone: this.formData.phone,
         department: this.formData.department,
         designation: this.formData.designation,
+        location: this.formData.location,
         salary: this.formData.salary,
         dateOfJoining: this.formData.dateOfJoining
       };
