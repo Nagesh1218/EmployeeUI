@@ -1,5 +1,5 @@
 .employee-list-container {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 2rem auto;
   padding: 0 1.5rem;
 
@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 
     h2 {
       color: #1e3a5f;
@@ -31,6 +31,34 @@
     }
   }
 
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .search-input {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: 1px solid #d8dde3;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+        border-color: #2d5a87;
+        box-shadow: 0 0 0 3px rgba(45, 90, 135, 0.15);
+      }
+    }
+
+    .result-count {
+      color: #666;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+  }
+
   .error-message {
     background: #fdecea;
     color: #d32f2f;
@@ -46,87 +74,116 @@
     color: #666;
     font-size: 1.1rem;
   }
+}
 
-  .table-wrapper {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    overflow-x: auto;
+.data-grid {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+
+  /* CSS-grid-based "table" so each row is a single block element that
+     CDK Virtual Scroll can position absolutely. Native <tr> inside <tbody>
+     cannot be virtualized reliably. */
+  .row {
+    display: grid;
+    grid-template-columns:
+      minmax(160px, 1.4fr)
+      minmax(220px, 1.8fr)
+      minmax(140px, 1fr)
+      minmax(180px, 1.4fr)
+      minmax(120px, 1fr)
+      minmax(110px, 0.9fr)
+      minmax(90px, 0.7fr)
+      minmax(160px, 1fr);
+    align-items: center;
+    padding: 0 1rem;
+    column-gap: 0.5rem;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.95rem;
+    color: #444;
+  }
 
-    th,
-    td {
-      padding: 0.85rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-    }
+  .header-row {
+    background: #f8f9fb;
+    border-bottom: 1px solid #e6e9ee;
+    height: 48px;
 
-    th {
-      background: #f8f9fb;
+    .cell {
       color: #1e3a5f;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+  }
 
-    td {
-      color: #444;
-      font-size: 0.95rem;
-    }
+  .viewport {
+    /* Fixed-height container is REQUIRED for CDK Virtual Scroll to work.
+       Tweak the calc() to match the surrounding chrome on your page. */
+    height: calc(100vh - 280px);
+    min-height: 400px;
+    width: 100%;
+  }
 
-    tbody tr:hover {
+  .data-row {
+    border-bottom: 1px solid #eef0f3;
+    transition: background-color 0.15s;
+
+    &:hover {
       background: #f8f9fb;
     }
+  }
 
-    .status-badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
+  .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
 
-      &.active {
-        background: #e8f5e9;
-        color: #2e7d32;
-      }
-
-      &.inactive {
-        background: #fce4ec;
-        color: #c62828;
-      }
+    &.active {
+      background: #e8f5e9;
+      color: #2e7d32;
     }
 
-    .actions {
-      display: flex;
-      gap: 0.5rem;
+    &.inactive {
+      background: #fce4ec;
+      color: #c62828;
+    }
+  }
 
-      .btn {
-        padding: 0.35rem 0.8rem;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.8rem;
-        font-weight: 600;
-        transition: opacity 0.2s;
+  .actions {
+    display: flex;
+    gap: 0.4rem;
+    overflow: visible;
 
-        &:hover {
-          opacity: 0.85;
-        }
+    .btn {
+      padding: 0.35rem 0.75rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
 
-        &.btn-edit {
-          background: #e3f2fd;
-          color: #1565c0;
-        }
+      &:hover {
+        opacity: 0.85;
+      }
 
-        &.btn-delete {
-          background: #fce4ec;
-          color: #c62828;
-        }
+      &.btn-edit {
+        background: #e3f2fd;
+        color: #1565c0;
+      }
+
+      &.btn-delete {
+        background: #fce4ec;
+        color: #c62828;
       }
     }
   }
